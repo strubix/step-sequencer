@@ -1,6 +1,6 @@
 import SoundFactory from "./sound";
 
-const bpm = 200;
+const bpm = 250;
 const sound = {
   kick: new SoundFactory({ soundId: 'kick', type: 'hardcore' }),
   filter: new SoundFactory({ soundId: 'filter', type: 'hardcore' }),
@@ -12,23 +12,28 @@ const stage = new createjs.Stage("canvasElementId");
 const line = new createjs.Shape();
 line.graphics.beginFill("#000").drawRect(0, 30, 1000, 10);
 stage.addChild(line);
-stage.update();
 
+const circle = [];
+const circles = new createjs.Shape();
 
 function drawDots(time) {
-  let begin = 150;
+  let begin = 100;
   for (let i = 0; i < 9; i++) {
-    line.graphics.beginFill("#000").drawCircle(begin, 35, 15);
-    line.graphics.beginFill("#ffff00").drawCircle(begin, 35, 10);
+    circle[i] = circles.graphics.beginFill("#000").drawCircle(begin, 35, 15);
+    circles.graphics.beginFill("#ffff00").drawCircle(begin, 35, 10);
+    circles.addEventListener("click", function(evt) {
+      console.log('toto');
+    });
 
     if (time == i) {
-      line.graphics.beginFill("red").drawCircle(begin, 35, 10);
+      circles.graphics.beginFill("red").drawCircle(begin, 35, 10);
     }
     begin += 100;
   }
-  stage.addChild(line);
+  stage.addChild(circles);
   stage.update();
 }
+console.log(circle);
 
 drawDots();
 
