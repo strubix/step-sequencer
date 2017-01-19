@@ -9,9 +9,9 @@ export default class StageController {
 
     this.patterns = {
       kick: new Pattern({ stage: this.stage, sound: 'kick', type: 'minimal' }),
+      'hit-hat': new Pattern({ stage: this.stage, sound: 'hit-hat', type: 'minimal' }),
       filter: new Pattern({ stage: this.stage, sound: 'C3', type: 'acid' }),
-      hit: new Pattern({ stage: this.stage, sound: 'BL_Openhat04', type: 'acid' }),
-      snare: new Pattern({ stage: this.stage, sound: 'sn', type: 'acid' })
+      snare: new Pattern({ stage: this.stage, sound: 'snare', type: 'minimal' })
     };
     this.beat = {};
 
