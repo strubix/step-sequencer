@@ -1,0 +1,9 @@
+.container div:first-child {
+    margin: 50px 0 10px;
+}
+
+.container div:first-child canvas {
+    border: 2px solid #000000;
+    display: block;
+    margin: auto;
+}
