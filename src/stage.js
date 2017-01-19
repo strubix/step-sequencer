@@ -20,6 +20,10 @@ export default class StageController {
       if (this.patterns.hasOwnProperty(pattern) && this.patterns[pattern] instanceof Pattern) {
 
         this.patterns[pattern].line = new createjs.Shape();
+        this.patterns[pattern].line.addEventListener("click", () => {
+          this.patterns[pattern].mute = !this.patterns[pattern].mute;
+          this.stage.update();
+        });
         this.patterns[pattern].line.graphics.beginFill("#000").drawRect(0, space, 1000, 30);
 
         this.patterns[pattern].text = new createjs.Text(pattern, "20px Arial", "#fff");
@@ -68,7 +72,7 @@ export default class StageController {
 
           this.patterns[pattern].displayBeats(beat);
 
-          if (this.patterns[pattern].beat[beat].read) {
+          if (this.patterns[pattern].beat[beat].read && !this.patterns[pattern].mute) {
             this.patterns[pattern].sound.playSound();
           }
         }

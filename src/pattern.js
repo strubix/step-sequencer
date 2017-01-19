@@ -6,6 +6,7 @@ export default class PatternController {
     this.sound = new SoundFactory({ soundId: options.sound, type: options.type });
     this.beat = {};
     this.index = options.index;
+    this.mute = false;
   }
 
   displayPattern(yPos) {
