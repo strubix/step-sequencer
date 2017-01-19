@@ -29,15 +29,35 @@ export default class StageController {
 
         this.stage.addChild(this.patterns[pattern].line);
         this.stage.addChild(this.patterns[pattern].text);
+
         this.patterns[pattern].displayPattern(space + 15);
 
         space = space + 50;
       }
     }
+
+    // Add button
+    let button = new createjs.Shape(),
+        buttonText = new createjs.Text('+', "20px Arial", "#fff");
+
+    button.graphics.beginFill("#0275d8").drawRoundRectComplex(60, space, 40, 35, 5, 5, 5, 5);
+
+    buttonText.x = 75;
+    buttonText.y = space + 17;
+    buttonText.textBaseline = "middle";
+
+    button.addEventListener("click", (evt) => {
+      this.toggleRead(this.beat[i]);
+      this.stage.update();
+    });
+
+    this.stage.addChild(button);
+    this.stage.addChild(buttonText);
+
     this.stage.update();
   }
 
-  loop(){
+  loop() {
     if (this.play) {
       return false;
     }

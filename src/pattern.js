@@ -13,20 +13,18 @@ export default class PatternController {
     for (let i = 0; i < 8; i++) {
       this.beat[i] = new createjs.Shape();
       this.beat[i].begin = begin;
-
+      this.beat[i].read = false;
       this.beat[i].graphics.beginFill("#000").drawCircle(this.beat[i].begin, 0, 15);
 
-      this.beat[i].read = false;
-
-      this.beat[i].addEventListener("click", (evt) => {
-        this.toggleRead(this.beat[i]);
+      this.beat[i].addEventListener("click", (event) => {
+        this.toggleRead(event.target);
         this.stage.update();
       });
 
       if (this.beat[i].read) {
-        this.beat[i].graphics.beginFill("yellow").drawCircle(this.beat[i].begin, 0, 10);
+        this.beat[i].graphics.clear().beginFill("yellow").drawCircle(this.beat[i].begin, 0, 10);
       } else {
-        this.beat[i].graphics.beginFill("#404040").drawCircle(this.beat[i].begin, 0, 10);
+        this.beat[i].graphics.clear().beginFill("#404040").drawCircle(this.beat[i].begin, 0, 10);
       }
 
       this.beat[i].y = yPos;
@@ -40,13 +38,13 @@ export default class PatternController {
     for (let i = 0; i < 8; i++) {
 
       if (this.beat[i].read) {
-        this.beat[i].graphics.beginFill("yellow").drawCircle(this.beat[i].begin, 0, 10);
+        this.beat[i].graphics.clear().beginFill("yellow").drawCircle(this.beat[i].begin, 0, 10);
       } else {
-        this.beat[i].graphics.beginFill("#404040").drawCircle(this.beat[i].begin, 0, 10);
+        this.beat[i].graphics.clear().beginFill("#404040").drawCircle(this.beat[i].begin, 0, 10);
       }
 
       if (time == i) {
-        this.beat[i].graphics.beginFill("red").drawCircle(this.beat[i].begin, 0, 10);
+        this.beat[i].graphics.clear().beginFill("red").drawCircle(this.beat[i].begin, 0, 10);
       }
       this.stage.addChild(this.beat[i]);
     }
@@ -56,10 +54,10 @@ export default class PatternController {
   toggleRead(shape) {
     if (shape.read) {
       shape.read = false;
-      shape.graphics.beginFill("#404040").drawCircle(shape.begin, 0, 10);
+      shape.graphics.clear().beginFill("#404040").drawCircle(shape.begin, 0, 10);
     } else {
       shape.read = true;
-      shape.graphics.beginFill("yellow").drawCircle(shape.begin, 0, 10);
+      shape.graphics.clear().beginFill("yellow").drawCircle(shape.begin, 0, 10);
     }
     return this.stage.update();
   }
