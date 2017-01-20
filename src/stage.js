@@ -1,17 +1,41 @@
 import Pattern from "./pattern";
+import Button from "./shape/button";
+import Line from "./shape/line";
+import Text from "./shape/text";
 
 export default class StageController {
   constructor(canvasId) {
-    this.bpm = 200;
+    this.bpm = 120;
     this.stage = new createjs.Stage(canvasId);
     this.play = false;
-    this.patterns = {
-      kick: new Pattern({ stage: this.stage, sound: 'kick', type: 'minimal' }),
-      'hit-hat': new Pattern({ stage: this.stage, sound: 'hit-hat', type: 'minimal' }),
-      filter: new Pattern({ stage: this.stage, sound: 'C3', type: 'acid' }),
-      snare: new Pattern({ stage: this.stage, sound: 'snare', type: 'minimal' })
-    };
+
+    this.patterns = {};
+
+    this.addButton = new Button({ stage: this.stage, space: 20 });
+    this.addButton.background.addEventListener("click", (event) => {
+      $('#addPattern').modal('show');
+      event.target.graphics.clear();
+    });
+
     this.displayLines();
+
+    this.stage.enableMouseOver(10);
+
+    $('#modal-save').on('click', () => {
+      let sound = $("#sound").val(),
+          type = $("#type").val();
+
+      if (!this.patterns[`${type} ${sound}`]) {
+        this.patterns[`${type} ${sound}`] = new Pattern({
+          stage: this.stage,
+          sound: sound,
+          soundId: type + '_' + sound,
+          type: type
+        });
+        $('#modal-close').click();
+      }
+      this.displayLines();
+    });
   }
 
   displayLines() {
@@ -19,15 +43,15 @@ export default class StageController {
     for (let pattern in this.patterns) {
       if (this.patterns.hasOwnProperty(pattern) && this.patterns[pattern] instanceof Pattern) {
 
-        this.patterns[pattern].line = new createjs.Shape();
-        this.patterns[pattern].line.addEventListener("click", () => {
-          this.patterns[pattern].mute = !this.patterns[pattern].mute;
-          this.stage.update();
+        this.patterns[pattern].line = new Line({ space: space });
+        this.patterns[pattern].line.display();
+
+        this.patterns[pattern].line.addEventListener("click", (event) => {
+          this.toggleMute(event.target);
         });
-        this.patterns[pattern].line.graphics.beginFill("#000").drawRect(0, space, 1000, 30);
 
         this.patterns[pattern].text = new createjs.Text(pattern, "20px Arial", "#fff");
-        this.patterns[pattern].text.x = 60;
+        this.patterns[pattern].text.x = 20;
         this.patterns[pattern].text.y = space + 15;
         this.patterns[pattern].text.textBaseline = "middle";
 
@@ -39,24 +63,8 @@ export default class StageController {
         space = space + 50;
       }
     }
-
-    // Add button
-    let button = new createjs.Shape(),
-        buttonText = new createjs.Text('+', "20px Arial", "#fff");
-
-    button.graphics.beginFill("#0275d8").drawRoundRectComplex(60, space, 40, 35, 5, 5, 5, 5);
-
-    buttonText.x = 75;
-    buttonText.y = space + 17;
-    buttonText.textBaseline = "middle";
-
-    button.addEventListener("click", (evt) => {
-      this.toggleRead(this.beat[i]);
-      this.stage.update();
-    });
-
-    this.stage.addChild(button);
-    this.stage.addChild(buttonText);
+    this.addButton.space = space;
+    this.addButton.display();
 
     this.stage.update();
   }
@@ -72,13 +80,24 @@ export default class StageController {
 
           this.patterns[pattern].displayBeats(beat);
 
-          if (this.patterns[pattern].beat[beat].read && !this.patterns[pattern].mute) {
+          if (this.patterns[pattern].beat[beat].read && !this.patterns[pattern].line.mute) {
             this.patterns[pattern].sound.playSound();
           }
         }
       }
 
       beat == 7 ? beat = 0 : beat++;
-    }, 60000 / this.bpm);
+    }, (60000 / this.bpm) / 2);
+  }
+
+  toggleMute(line) {
+    if (line.mute) {
+      line.mute = false;
+      line.graphics.clear().beginFill("#000").drawRect(0, line.space, 1000, 30);
+    } else {
+      line.mute = true;
+      line.graphics.clear().beginFill("#a4a4a4").drawRect(0, line.space, 1000, 30);
+    }
+    return this.stage.update();
   }
 }

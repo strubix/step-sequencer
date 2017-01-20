@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="./assets/css/style.css">
@@ -18,8 +19,50 @@
     </div>
 
     <div class="col-xs-12 text-center">
+        <div class="bpm">
+            <label for="bpm">BPM</label>
+            <input class="form-control" type="number" value="120" id="bpm">
+        </div>
         <button type="button" class="btn btn-primary playSound">Play</button>
         <button type="button" class="btn btn-danger stopSound">Stop</button>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addPattern" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add a pattern</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="type">Type</label>
+                    <select class="form-control" id="type">
+                        <option value="hardcore">Hardcore</option>
+                        <option value="minimal">Minimal</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sound">Sound</label>
+                    <select class="form-control" id="sound">
+                        <option value="kick">Kick</option>
+                        <option value="hit-hat">Hit Hat</option>
+                        <option value="snare">Snare</option>
+                        <option value="clap">Clap</option>
+                        <option value="reverb">Reverb</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="modal-close" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="modal-save" type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
     </div>
 </div>
 

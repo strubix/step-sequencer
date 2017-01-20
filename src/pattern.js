@@ -3,9 +3,8 @@ import SoundFactory from "./sound";
 export default class PatternController {
   constructor(options) {
     this.stage = options.stage;
-    this.sound = new SoundFactory({ soundId: options.sound, type: options.type });
+    this.sound = new SoundFactory({ soundId: options.soundId, type: options.type, sound: options.sound });
     this.beat = {};
-    this.index = options.index;
     this.mute = false;
   }
 
@@ -22,11 +21,9 @@ export default class PatternController {
         this.stage.update();
       });
 
-      if (this.beat[i].read) {
-        this.beat[i].graphics.clear().beginFill("yellow").drawCircle(this.beat[i].begin, 0, 10);
-      } else {
-        this.beat[i].graphics.clear().beginFill("#404040").drawCircle(this.beat[i].begin, 0, 10);
-      }
+      this.beat[i].read ?
+          this.beat[i].graphics.clear().beginFill("yellow").drawCircle(this.beat[i].begin, 0, 10) :
+          this.beat[i].graphics.clear().beginFill("#404040").drawCircle(this.beat[i].begin, 0, 10);
 
       this.beat[i].y = yPos;
       begin += 100;
@@ -38,15 +35,12 @@ export default class PatternController {
   displayBeats(time = -1) {
     for (let i = 0; i < 8; i++) {
 
-      if (this.beat[i].read) {
-        this.beat[i].graphics.clear().beginFill("yellow").drawCircle(this.beat[i].begin, 0, 10);
-      } else {
-        this.beat[i].graphics.clear().beginFill("#404040").drawCircle(this.beat[i].begin, 0, 10);
-      }
+      this.beat[i].read ?
+          this.beat[i].graphics.clear().beginFill("yellow").drawCircle(this.beat[i].begin, 0, 10) :
+          this.beat[i].graphics.clear().beginFill("#404040").drawCircle(this.beat[i].begin, 0, 10);
 
-      if (time == i) {
-        this.beat[i].graphics.clear().beginFill("red").drawCircle(this.beat[i].begin, 0, 10);
-      }
+      if (time == i) this.beat[i].graphics.clear().beginFill("red").drawCircle(this.beat[i].begin, 0, 10);
+
       this.stage.addChild(this.beat[i]);
     }
     this.stage.update();
