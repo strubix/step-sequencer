@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Step-Sequencer</title>
+</head>
+<body>
+
+<main role="main" class="container">
+
+    <div class="starter-template">
+        <h1>Step-Sequencer</h1>
+        <p class="lead">A javascript step-sequencer inspired by the most popular music softwares.</p>
+    </div>
+
+
+    <div class="container">
+        <div class="col-xs-12">
+            <canvas id="canvasElementId" width="1000" height="500">
+                Your browser does not support HTML5 Canvas.
+            </canvas>
+        </div>
+
+        <div class="col-xs-12 text-center">
+            <div class="bpm">
+                <label for="bpm">BPM</label>
+                <input class="form-control" type="number" value="120" id="bpm">
+            </div>
+            <button type="button" class="btn btn-primary playSound">Play</button>
+            <button type="button" class="btn btn-danger stopSound">Stop</button>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addPattern" tabindex="-1" role="dialog" aria-labelledby="pattern-modal"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pattern-modal">Add a pattern</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="type">Type</label>
+                        <select class="form-control" id="type">
+                            <option value="minimal">Minimal</option>
+                            <option value="hardcore">Hardcore</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sound">Sound</label>
+                        <select class="form-control" id="sound">
+                            <option value="kick">Kick</option>
+                            <option value="hit-hat">Hit Hat</option>
+                            <option value="snare">Snare</option>
+                            <option value="clap">Clap</option>
+                            <option value="reverb">Reverb</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="modal-close" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="modal-save" type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

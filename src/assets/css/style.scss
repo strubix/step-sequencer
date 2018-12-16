@@ -1,0 +1,41 @@
+@import '~bootstrap/scss/bootstrap';
+
+body {
+  padding-top: 5rem;
+}
+
+.starter-template {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.container div:first-child canvas {
+  @extend .border, .border-dark;
+  display: block;
+  margin: auto;
+}
+
+.dropdown {
+  text-align: center;
+  margin-bottom: 20px;
+
+  button {
+    min-width: 40%;
+  }
+}
+
+.dropdown-menu {
+  left: 50%;
+  right: auto;
+  text-align: center;
+  transform: translate(-50%, 0);
+}
+
+.bpm {
+  width: 100px;
+  margin: auto auto 10px;
+
+  input {
+    text-align: center;
+  }
+}

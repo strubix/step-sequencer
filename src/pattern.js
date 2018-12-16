@@ -5,7 +5,7 @@ export default class PatternController {
     this.stage = options.stage;
     this.sound = new SoundFactory({ soundId: options.soundId, type: options.type, sound: options.sound });
     this.beat = {};
-    this.mute = false;
+      // this.mute = false;
   }
 
   displayPattern(yPos) {
@@ -39,7 +39,7 @@ export default class PatternController {
           this.beat[i].graphics.clear().beginFill("yellow").drawCircle(this.beat[i].begin, 0, 10) :
           this.beat[i].graphics.clear().beginFill("#404040").drawCircle(this.beat[i].begin, 0, 10);
 
-      if (time == i) this.beat[i].graphics.clear().beginFill("red").drawCircle(this.beat[i].begin, 0, 10);
+        if (time === i) this.beat[i].graphics.clear().beginFill("red").drawCircle(this.beat[i].begin, 0, 10);
 
       this.stage.addChild(this.beat[i]);
     }
